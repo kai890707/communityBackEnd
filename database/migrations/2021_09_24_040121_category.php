@@ -14,6 +14,11 @@ class Category extends Migration
     public function up()
     {
         //
+        //  Schema::create('category', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('category_name')->comment('文章類別');
+        //     $table->timestamps();
+        // });
     }
 
     /**

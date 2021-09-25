@@ -14,6 +14,16 @@ class Users extends Migration
     public function up()
     {
         //
+        //   Schema::create('user', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('user_name');
+        //     $table->string('user_account');
+        //     $table->string('user_password');
+        //     $table->string('user_phone');
+        //     $table->string('user_email');
+        //     $table->string('user_permission')->comment('權限{root:系統開發者,admin:網站管理者,normal:一般管理員}');
+        //     $table->timestamps();
+        // });
     }
 
     /**
