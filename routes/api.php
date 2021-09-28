@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,7 +19,27 @@ use App\Http\Controllers\AuthController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['middleware' => ['jwt_refresh']], function () {
-    Route::get('w', [AuthController::class, 'ww']);
+// Route::group(['middleware' => ['jwt_refresh']], function () {
+  
+// });
+
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('userProfile', [AuthController::class, 'userProfile']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
-Route::post('login', [AuthController::class, 'login']);
+
+
+// 後臺帳號設定Service
+Route::group(['prefix' => 'account'], function () {
+    Route::post('createUserAccount', [UserController::class, 'createUserAccount']);
+});
+// 後臺文章Service
+Route::group(['prefix' => 'announcement', 'middleware' => 'jwt_refresh'], function () {
+    Route::get('list', [AnnouncementController::class, 'getAllList']);
+    Route::post('add', [AnnouncementController::class, 'add']);
+    Route::post('uploadImage', [AnnouncementController::class, 'uploadImage']);
+});

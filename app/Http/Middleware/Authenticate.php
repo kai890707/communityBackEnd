@@ -3,10 +3,11 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
+use Closure;
+use Illuminate\Support\Facades\Auth;
 class Authenticate extends Middleware
 {
-    /**
+     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -17,5 +18,14 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
+    }
+
+    public function handle($request, Closure $next, $guard = null)
+    {
+        if (Auth::guard($guard)->guest()) {
+            return response('not found token.', 401);
+        }
+        // return Auth::guard($guard)->guest();
+        return $next($request);
     }
 }

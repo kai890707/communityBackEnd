@@ -11,6 +11,8 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "mews/purifier": "^3.3",
+        "nesbot/carbon": "^2.53",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

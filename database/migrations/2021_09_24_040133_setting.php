@@ -13,7 +13,7 @@ class Setting extends Migration
      */
     public function up()
     {
-          //  Schema::create('setting', function (Blueprint $table) {
+        //    Schema::create('setting', function (Blueprint $table) {
         //     $table->string('module')->comment('模組名稱');
         //     $table->string('setting')->comment('設定欄位');
         //     $table->string('value')->comment('值');

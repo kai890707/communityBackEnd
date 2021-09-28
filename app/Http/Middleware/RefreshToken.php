@@ -58,9 +58,15 @@ class RefreshToken extends BaseMiddleware
                 ], 403);
             }
         }
-        return response('', 401)
-                ->header('Access-Control-Expose-Headers', 'authorization')
-                ->header('Authorization', $newtoken);
+        return response()->json([
+            'status' => 2,
+            'message' => '登入時效已過，請重新登入！',
+        ], 401)
+        ->header('Access-Control-Expose-Headers', 'authorization')
+        ->header('Authorization', $newtoken);
+        // return response('', 401)
+        //         ->header('Access-Control-Expose-Headers', 'authorization')
+        //         ->header('Authorization', $newtoken);
 
     }
 }
