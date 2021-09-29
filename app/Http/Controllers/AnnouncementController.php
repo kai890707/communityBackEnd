@@ -11,6 +11,7 @@ use App\Models\Form\PostValidation;
 use App\Models\Practice\Post;
 use App\Models\Practice\Image;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 class AnnouncementController extends Controller
 {
     public $post_model;
@@ -25,22 +26,36 @@ class AnnouncementController extends Controller
    */
     public function getAllList()
     {
-        try {
-            $p_id = $this->getJWTUserId();
-        } catch (JWTException $e) {
-            return response()->json([
-                'message' => 'token expired',
-            ], 401);
+        $result = $this->post_model->getAllList();
+        foreach($result as $array){
+            if($array['status']=="T"){
+                $array['status']="已發佈";
+            }
+            Carbon::setLocale('tw');
+            $now = Carbon::now();
+            $timestamp = '2021-09-09 17:34:00';
+            // $date = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp,'Asia/Taipei');
+            // $date->setTimezone('Asia/Taipei');
+            $array['dd'] =Carbon::now()->toDateString('Y-m-d H:i:s');
+            // $array['created_at'] =  Carbon::createFromFormat('Y-m-d H:i:s', $array['created_at']);
+            // $array['updated_at'] = Carbon::parse($array['updated_at']);
+            // $array['created'] = Carbon::parse($array['created_at'])->format('Y-m-d H:m:s');
+            // $array['updated'] = Carbon::parse($array['updated_at'])->format('Y-m-d H:m:s');
+            $array['created'] = Carbon::parse($array['created_at'])->format('Y-m-d');
+            $array['updated'] = Carbon::parse($array['updated_at'])->format('Y-m-d');
         }
         return response()->json([
-                'status' => 1,
-                'data' =>$p_id,
-            ]);
+            'status'=>$this::$REQUEST_SUCCESS,
+            'data'=>$result
+        ]);
     }
     /**
-     * [新增社區公告]
+     * [新增社區公告
+     * 取得所有資訊，驗證文字後驗證圖片
+     * 再將文章新增，取得文章ID後將圖片塞入對應文章
+     * ]
      * @param Request $request
-     * @return void
+     * @return {$REQUEST_SUCCESS(1)=>成功,$REQUEST_ERROR(0)=>失敗,$REQUEST_VERIFY_FAILD(3)=>驗證失敗}
      */
     public function add(Request $request)
     {
@@ -48,13 +63,15 @@ class AnnouncementController extends Controller
         $form = new PostValidation($data);
         if ($form->isValid()) {
             return response()->json([
-                $form->getErrors()
+                'status'=>$this::$REQUEST_VERIFY_FAILD,
+                'message'=>$form->getErrors()
             ]);
         }
         $form = new ImageValidation($request->file());
         if ($form->isValid()) {
             return response()->json([
-                $form->getErrors()
+                'status'=>$this::$REQUEST_VERIFY_FAILD,
+                'message'=>$form->getErrors()
             ]);
         }
         $addPostResult = $this->post_model->addNewPost($data); //獲取文章ID
@@ -77,43 +94,15 @@ class AnnouncementController extends Controller
               
             
             }
+            return response()->json([
+                'status'=>$this::$REQUEST_SUCCESS,
+            ]);
+        }else{
+            return response()->json([
+                'status'=>$this::$REQUEST_ERROR,
+            ]);
         }
         
-    }
-    public function uploadImage(Request $request)
-    {
-        if ($request->hasFile('file')) {
-            $form = new ImageValidation($request->file());
-            if ($form->isValid()) {
-                return response()->json([
-                    $form->getErrors()
-                ]);
-            }
-
-            $upload_path = public_path('uploads');
-            $generated_new_name = time() . '.' . $request->file->getClientOriginalExtension();
-            $request->file->move($upload_path, $generated_new_name);
-
-            // $id = $this->getJWTUserId();
-            // $result = UserNews::setImg($id, $generated_new_name);
-            // if ($result) {
-            //     $info_id = Hashids::encode($id);
-            //     if (Cache::has("info-$info_id")) {
-            //         $info = Cache::get("info-$info_id");
-            //         $info['user_img'] = url('/').'/uploads/'.$generated_new_name;
-            //         Cache::put("info-$info_id", $info);
-            //     }
-                return response()->json([
-                    'status' => 1,
-                    'path' => url('/').'/uploads/'.$generated_new_name,
-                    'aaa' => $upload_path
-                ]);
-            // } else {
-            //     return response()->json([
-            //         'status' => 0,
-            //     ]);
-            // }
-        }
     }
    
 }

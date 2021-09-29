@@ -9,5 +9,6 @@ class PostModel extends Model
 {
     use HasFactory;
     protected $table = 'page';
+    // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
     // public $timestamps = true;
 }

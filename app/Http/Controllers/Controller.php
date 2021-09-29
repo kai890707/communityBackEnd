@@ -15,9 +15,10 @@ class Controller extends BaseController
      * [靜態變數 請求Response Code]
      */
     public static $REQUEST_LOGIN_SUCCESS = "SUCCESS";
-    public static $REQUEST_LOGIN_ERROR = "SUCCESS";
-    public static $REQUEST_SUCCESS = "SUCCESS";
-    public static $REQUEST_ERROR = "ERROR";
+    public static $REQUEST_LOGIN_ERROR = "ERROR";
+    public static $REQUEST_SUCCESS = 1;
+    public static $REQUEST_ERROR = 0;
+    public static $REQUEST_VERIFY_FAILD = 3;
     /**
      * [公用方法 json格式轉物件再轉陣列]
      *

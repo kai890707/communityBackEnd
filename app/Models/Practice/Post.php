@@ -4,12 +4,41 @@ namespace App\Models\Practice;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Entity\PostModel;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class Post
 {
     use HasFactory;
+
+
     /**
-     * [新增文章]
+     * [後台取得所有文章]
+     *
+     * @param [String] $data
+     * @return post_id
+     */
+    public static function getAllList()
+    {
+        $selectArray=[
+            "page.id as id",
+            "page.page_title as title",
+            "page.page_status as status",
+            // DB::raw ("DATE_FORMAT(page.created_at,'%d-%m-%Y') as  created_at"),
+            // DB::raw ("DATE_FORMAT(page.updated_at,'%d-%m-%Y') as  updated_at"),
+            "page.created_at as created_at",
+            "page.updated_at as updated_at",
+            "category.category_name as category_name"
+        ];
+        $query = PostModel::select($selectArray)
+                ->join('category', 'category.id', '=', 'page.category_id')
+                ->get();
+        
+        return $query;
+        
+    }
+
+    /**
+     * [後台新增文章]
      *
      * @param [String] $data
      * @return post_id
@@ -29,7 +58,7 @@ class Post
         }
     }
     /**
-     * [新增精選圖片]
+     * [後台新增精選圖片]
      *
      * @param [String,String] 圖片路徑,文章ID
      * @return array
