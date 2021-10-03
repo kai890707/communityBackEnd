@@ -19,14 +19,15 @@ class Pageimage extends Migration
         //     // $table->integer('pageId')->unsigned()->comment('文章ID');
         //     // $table->foreign('pageId')->references('id')->on('page');
         //     $table->string('pageImage_name')->comment('圖片名稱');
-        //     $table->timestamps();
+        //     $table->dateTime('created_at')->comment('建立時間');
+        //     $table->dateTime('updated_at')->comment('修改時間');
         // });
-        //  Schema::table('pageImage', function (Blueprint $table) {
+         Schema::table('pageImage', function (Blueprint $table) {
 
-        //     $table->integer('pageId')->unsigned()->comment('文章ID');
-        //     $table->foreign('pageId')->references('id')->on('page');
+            $table->integer('pageId')->unsigned()->nullable()->comment('文章ID');
+            $table->foreign('pageId')->references('id')->on('page');
 
-        // });
+        });
     }
 
     /**

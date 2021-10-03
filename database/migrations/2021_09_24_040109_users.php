@@ -22,7 +22,8 @@ class Users extends Migration
         //     $table->string('user_phone');
         //     $table->string('user_email');
         //     $table->string('user_permission')->comment('權限{root:系統開發者,admin:網站管理者,normal:一般管理員}');
-        //     $table->timestamps();
+        //     $table->dateTime('created_at')->comment('建立時間');
+        //     $table->dateTime('updated_at')->comment('修改時間');
         // });
     }
 

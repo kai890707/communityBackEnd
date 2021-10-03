@@ -34,12 +34,20 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 // 後臺帳號設定Service
-Route::group(['prefix' => 'account'], function () {
+Route::group(['prefix' => 'account', 'middleware' => 'jwt_refresh'], function () {
+    Route::get('getAdminInfo', [UserController::class, 'getAdminInfo']);
     Route::post('createUserAccount', [UserController::class, 'createUserAccount']);
+    Route::post('updatePassword', [UserController::class, 'updatePassword']);
 });
 // 後臺文章Service
 Route::group(['prefix' => 'announcement', 'middleware' => 'jwt_refresh'], function () {
     Route::get('list', [AnnouncementController::class, 'getAllList']);
     Route::post('add', [AnnouncementController::class, 'add']);
+    Route::post('edit', [AnnouncementController::class, 'edit']);
+    Route::post('delete', [AnnouncementController::class, 'delete']);
+    Route::get('getAllListByCategory/{category_id}', [AnnouncementController::class, 'getAllListByCategory']);
+    Route::get('getCategory', [AnnouncementController::class, 'getCategory']);
+    Route::get('getPostToEditById/{pageId}', [AnnouncementController::class, 'getPostToEditById']);
     Route::post('uploadImage', [AnnouncementController::class, 'uploadImage']);
 });
+Route::get('uploads/{img_name}', [AnnouncementController::class, 'getImg']);

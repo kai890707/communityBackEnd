@@ -8,7 +8,7 @@ class Auth
 {
     public static function checkUser($account,$password)
     {
-        $user = AuthModel::where('user_account',$account)->where('user_password',$password)->first();
+        $user = AuthModel::where('user_account',$account)->where('user_password',sha1($password))->first();
         return $user;
     }
 }

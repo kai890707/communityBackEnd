@@ -4,6 +4,10 @@ namespace App\Models\Practice;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Entity\PostImageModel;
+use App\Models\Entity\PostModel;
+use Illuminate\Support\Facades\Storage;
+use Exception;
+use Illuminate\Support\Facades\File;
 use DB;
 class Image
 {
@@ -14,7 +18,7 @@ class Image
      * @param [String,String] 圖片路徑,文章ID
      * @return array
      */
-    public static function addImage($fileName,$postID)
+    public function uploadImage($fileName,$postID)
     {
         $image = new PostImageModel;
         $image->pageImage_name = 'uploads/'.$fileName;
@@ -25,4 +29,29 @@ class Image
             return false;
         }
     }
+    /**
+     * [清除圖片關聯]
+     *
+     * @param [String,String] 文章ID
+     * @return array
+     */
+    public function initImageRelation($pageId)
+    {
+        $a = PostImageModel::where('pageId',$pageId)->get();
+        foreach($a as $b ){
+            if(File::exists($b['pageImage_name'])){
+                unlink($b['pageImage_name']);
+            }
+        }
+        try {
+            $query =PostImageModel::where('pageId',$pageId)
+            ->delete();
+            $res = true;
+        } catch(Exception $e) {
+            $res = false;
+        }
+       
+        return $res;
+    }
+
 }

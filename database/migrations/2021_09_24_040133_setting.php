@@ -17,7 +17,8 @@ class Setting extends Migration
         //     $table->string('module')->comment('模組名稱');
         //     $table->string('setting')->comment('設定欄位');
         //     $table->string('value')->comment('值');
-        //     $table->timestamps();
+        //     $table->dateTime('created_at')->comment('建立時間');
+        //     $table->dateTime('updated_at')->comment('修改時間');
         // });
     }
 

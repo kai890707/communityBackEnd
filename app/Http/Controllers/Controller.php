@@ -20,6 +20,22 @@ class Controller extends BaseController
     public static $REQUEST_ERROR = 0;
     public static $REQUEST_VERIFY_FAILD = 3;
     /**
+     * 封裝response
+     */
+    protected function responz_Code_Message($code, $message)
+    {
+        return response()->json(['success' => $code, 'message' => $message]);
+    }
+    protected function responz_Code_Data($code, $data)
+    {
+        return response()->json(['success' => $code, 'data' => $data]);
+    }
+    protected function responz_Data($data)
+    {
+        return response()->json(['data' => $data]);
+    }
+
+    /**
      * [公用方法 json格式轉物件再轉陣列]
      *
      * @param [String] $data
