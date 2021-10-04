@@ -5,8 +5,8 @@ namespace App\Models\Form;
 class ImageValidation extends FormModel
 {
     protected $validationRules = [
-        'img' => 'mimes:jpg,png,gif,svg,bmp,jpeg|max:4096',
-        'carousel.*' => 'mimes:jpg,png,gif,svg,bmp,jpeg|max:4096'
+        'img' => 'mimes:jpg,png,gif,svg,bmp,jpeg|max:5120',
+        'carousel.*' => 'mimes:jpg,png,gif,svg,bmp,jpeg|max:5120'
     ];
     protected $messages = [
         'img.mimes' => '圖片格式不正確 必須為以下格式jpg, png, gif, svg, bmp, jpeg！',

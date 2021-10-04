@@ -150,7 +150,6 @@ class Post
                     "page_content"=>$data['content'],
                     "page_status"=>$data['status'],
                     "category_id"=>1,
-                    "created_at"=>now(),
                     "updated_at"=>now(),
                 ]);
         return $query;

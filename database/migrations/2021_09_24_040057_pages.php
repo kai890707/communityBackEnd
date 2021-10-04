@@ -25,12 +25,12 @@ class Pages extends Migration
         //     // $table->foreign('category_id')->references('id')->on('category');
     
         // });
-        Schema::table('page', function (Blueprint $table) {
+        // Schema::table('page', function (Blueprint $table) {
             
-            $table->integer('category_id')->unsigned()->comment('分類ID');
-            $table->foreign('category_id')->references('id')->on('category');
+        //     $table->integer('category_id')->unsigned()->comment('分類ID');
+        //     $table->foreign('category_id')->references('id')->on('category');
 
-        });
+        // });
  
       
     }

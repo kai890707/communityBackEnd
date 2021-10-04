@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,8 +37,10 @@ Route::group(['prefix' => 'auth'], function () {
 // 後臺帳號設定Service
 Route::group(['prefix' => 'account', 'middleware' => 'jwt_refresh'], function () {
     Route::get('getAdminInfo', [UserController::class, 'getAdminInfo']);
-    Route::post('createUserAccount', [UserController::class, 'createUserAccount']);
+    Route::get('getConfig', [SettingController::class, 'getConfig']);
     Route::post('updatePassword', [UserController::class, 'updatePassword']);
+    Route::post('createEditor', [UserController::class, 'createEditor']);
+    Route::post('updateConfig', [SettingController::class, 'updateConfig']);
 });
 // 後臺文章Service
 Route::group(['prefix' => 'announcement', 'middleware' => 'jwt_refresh'], function () {

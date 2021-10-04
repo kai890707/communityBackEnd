@@ -14,15 +14,15 @@ class UserInfo
      * @param [String] $data
      * @return array
      */
-    public static function createUserAccount($data)
+    public static function createEditor($data)
     {
         $user = new UserInfoModel;
         $user->user_name = $data['name'];
         $user->user_account = $data['account'];
-        $user->user_password = $data['password'];
+        $user->user_password = sha1($data['password']);
         $user->user_phone = $data['phone'];
         $user->user_email = $data['email'];
-        $user->user_permission = 1;
+        $user->user_permission = 'normal';
         if ($user->save()) {
             return true;
         } else {
@@ -73,5 +73,16 @@ class UserInfo
         }else{
             return true;
         }
+    }
+    /**
+    * [驗證帳號是否存在]
+     *
+     * @param  register_info
+     * @return boolean
+     */
+    public static function vaildAccount($data)
+    {
+        $res = UserInfoModel::where('user_account',$data['account'])->first(); 
+        return $res; 
     }
 }

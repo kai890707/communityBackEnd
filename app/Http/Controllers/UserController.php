@@ -14,13 +14,30 @@ class UserController extends Controller
      *
      * @return object
      */
-    public function createUserAccount(Request $request)
+    public function createEditor(Request $request)
     {
-        $input = $this->decodeArray($request->input('data'));
-        $r = UserInfo::createUserAccount($input);
-        return response()->json([
-            'success'=>$r
-        ]);
+        $data = $request->all();
+        $hasAccount = UserInfo::vaildAccount($data);
+        if(count((array) $hasAccount) !== 0){
+            return response()->json([
+                'status'=>$this::$REQUEST_ERROR,
+                'd'=>$hasAccount
+            ]);
+        }else{
+            $isCreate = UserInfo::createEditor($data);
+            if($isCreate){
+                return response()->json([
+                'status'=>$this::$REQUEST_SUCCESS,
+                ]);
+            }else{
+                return response()->json([
+                'status'=>$this::$REQUEST_ERROR,
+                'd'=>0
+            ]);
+            }
+        }
+        
+      
     }
     /**
      * [取得網站管理員帳號資訊]
