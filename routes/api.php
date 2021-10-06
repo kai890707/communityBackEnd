@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\PageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -54,3 +55,7 @@ Route::group(['prefix' => 'announcement', 'middleware' => 'jwt_refresh'], functi
     Route::post('uploadImage', [AnnouncementController::class, 'uploadImage']);
 });
 Route::get('uploads/{img_name}', [AnnouncementController::class, 'getImg']);
+Route::group(['prefix' => 'page'], function () {
+    Route::get('getIndexData', [PageController::class, 'getIndexData']);
+    Route::get('getNavData', [PageController::class, 'getNavData']);
+});

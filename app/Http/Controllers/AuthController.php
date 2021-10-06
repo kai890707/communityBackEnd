@@ -60,6 +60,7 @@ class AuthController extends Controller
                 return response()->json([
                     'success' => true,
                     'token' => JWTAuth::fromUser($result),
+                    'permission'=>$result['user_permission']
                     // 'u_id' => Hashids::encode($result->personal_info_id)
                 ], 200);
             }
