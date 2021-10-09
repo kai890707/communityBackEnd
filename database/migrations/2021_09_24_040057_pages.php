@@ -16,7 +16,7 @@ class Pages extends Migration
         // Schema::create('page', function (Blueprint $table) {
         //     $table->increments('id');
         //     $table->string('page_title')->comment('文章標題');
-        //     $table->string('page_content')->comment('文章內容');
+        //     $table->longText('page_content')->comment('文章內容');
         //     $table->string('page_status')->comment('文章狀態{T:發佈 F:未發佈}');
         //     $table->string('page_chosen')->comment('精選圖片');
         //     $table->dateTime('created_at')->comment('建立時間');

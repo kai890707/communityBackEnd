@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost_3306
- Source Server Type    : MySQL
- Source Server Version : 100144
+ Source Server         : localhost
+ Source Server Type    : MariaDB
+ Source Server Version : 100148
  Source Host           : localhost:3306
  Source Schema         : lab_community_public
 
- Target Server Type    : MySQL
- Target Server Version : 100144
+ Target Server Type    : MariaDB
+ Target Server Version : 100148
  File Encoding         : 65001
 
- Date: 04/10/2021 17:53:56
+ Date: 10/10/2021 00:46:43
 */
 
 SET NAMES utf8mb4;
@@ -65,7 +65,7 @@ DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `page_title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章標題',
-  `page_content` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章內容',
+  `page_content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章內容',
   `page_status` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章狀態{T:發佈 F:未發佈}',
   `page_chosen` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '精選圖片',
   `created_at` datetime(0) NOT NULL COMMENT '建立時間',
@@ -74,13 +74,7 @@ CREATE TABLE `page`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `page_category_id_foreign`(`category_id`) USING BTREE,
   CONSTRAINT `page_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of page
--- ----------------------------
-INSERT INTO `page` VALUES (21, '這是網站的第一篇公告', '{\"blocks\":[{\"key\":\"1gqf0\",\"text\":\"這是網站的第一篇公告\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}', 'T', 'uploads/1633316854.jpg', '2021-10-04 11:07:34', '2021-10-04 11:07:34', 1);
-INSERT INTO `page` VALUES (22, 'aaa', '{\"blocks\":[{\"key\":\"1256c\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}', 'T', 'uploads/1633337678.png', '2021-10-04 16:54:38', '2021-10-04 16:54:38', 1);
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for pageImage
@@ -95,12 +89,7 @@ CREATE TABLE `pageImage`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pageimage_pageid_foreign`(`pageId`) USING BTREE,
   CONSTRAINT `pageimage_pageid_foreign` FOREIGN KEY (`pageId`) REFERENCES `page` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of pageImage
--- ----------------------------
-INSERT INTO `pageImage` VALUES (45, 'uploads/01633316854.jpg', '2021-10-04 11:07:34', '2021-10-04 11:07:34', 21);
+) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for personal_access_tokens
@@ -145,7 +134,7 @@ CREATE TABLE `setting`  (
 -- ----------------------------
 -- Records of setting
 -- ----------------------------
-INSERT INTO `setting` VALUES (1, '高雄市大社區保社社區發展協會', '高雄市大社區保社里中正路367-1號', '許清泉', '林小姐', '0925922969', 'sixgas@yahoo.com.tw', 'default', 'default', '保社社區發展協會，原由理事長黃郡先生與總幹事徐國賢先生及會員共襄盛舉，創立於民國八十六年間。協會成立之初承蒙許多默默付出的會員辛苦經營，爾後民國九十四年間由理事長莊仁平先生與總幹事黃明宗先生代理職務一年六個月。現今為第三、四屆理事長韓進鄉先生與總幹事許清泉先生由會員大會經理事會順利而產生，並由高雄縣政府及大社鄉公所輔導和地方人士慷慨贊助，承先啟後奠定日後發展的基礎。目前於103年1月1日產生第五屆理事長許清泉與總幹事徐陳酉蘭繼續推動創新社區新里程。', 'uploads/1633341001.jpg', '2021-10-04 17:33:46', '2021-10-04 17:50:01');
+INSERT INTO `setting` VALUES (1, '保社社區', '高雄市大社區保社里中正路367-1號', '許清泉', '林小姐', '0925922969', 'sixgas@yahoo.com.tw', 'default', 'default', '保社社區發展協會，原由理事長黃郡先生與總幹事徐國賢先生及會員共襄盛舉，創立於民國八十六年間。協會成立之初承蒙許多默默付出的會員辛苦經營，爾後民國九十四年間由理事長莊仁平先生與總幹事黃明宗先生代理職務一年六個月。現今為第三、四屆理事長韓進鄉先生與總幹事許清泉先生由會員大會經理事會順利而產生，並由高雄縣政府及大社鄉公所輔導和地方人士慷慨贊助，承先啟後奠定日後發展的基礎。目前於103年1月1日產生第五屆理事長許清泉與總幹事徐陳酉蘭繼續推動創新社區新里程。', 'uploads/1633769094.jpg', '2021-10-04 17:33:46', '2021-10-09 16:44:54');
 
 -- ----------------------------
 -- Table structure for user

@@ -4,6 +4,7 @@ namespace App\Models\Practice;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Entity\PostModel;
+use App\Models\Entity\PostImageModel;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Carbon\Carbon;
@@ -149,7 +150,7 @@ class Post
                     "page_title"=>$data['title'],
                     "page_content"=>$data['content'],
                     "page_status"=>$data['status'],
-                    "category_id"=>1,
+                    // "category_id"=>1,
                     "updated_at"=>now(),
                 ]);
         return $query;

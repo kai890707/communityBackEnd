@@ -53,9 +53,12 @@ Route::group(['prefix' => 'announcement', 'middleware' => 'jwt_refresh'], functi
     Route::get('getCategory', [AnnouncementController::class, 'getCategory']);
     Route::get('getPostToEditById/{pageId}', [AnnouncementController::class, 'getPostToEditById']);
     Route::post('uploadImage', [AnnouncementController::class, 'uploadImage']);
+    Route::get('downloadPPT', [PageController::class, 'downloadPPT']);
 });
-Route::get('uploads/{img_name}', [AnnouncementController::class, 'getImg']);
+
 Route::group(['prefix' => 'page'], function () {
     Route::get('getIndexData', [PageController::class, 'getIndexData']);
-    Route::get('getNavData', [PageController::class, 'getNavData']);
+    Route::get('getNewsPage/{catrgory_id}', [PageController::class, 'getNewsPage']);
+    Route::get('getNewsDetailPage/{post_id}', [PageController::class, 'getNewsDetailPage']);
 });
+Route::get('uploads/{img_name}', [AnnouncementController::class, 'getImg']);

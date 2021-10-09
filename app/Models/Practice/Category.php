@@ -20,5 +20,16 @@ class Category
                                 ->get();
         return $query;
     }
+    /**
+     * [取得所有分類]
+     * @param category_id
+     */
+    public function getCategoryName($category_id)
+    {
+        $query = CategoryModel::select('category_name as name')
+                                ->where('id',$category_id)
+                                ->first();
+        return $query->name;
+    }
 
 }

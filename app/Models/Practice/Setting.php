@@ -4,7 +4,7 @@ namespace App\Models\Practice;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Entity\SettingModel;
-use DB;
+use Illuminate\Support\Facades\DB;
 class Setting
 {
     use HasFactory;
@@ -93,7 +93,7 @@ class Setting
      */
     public function getFooter()
     {
-        $res = SettingModel::select('community_name','community_host','community_contact','community_address','community_email','community_phone')->where('id',1)->first(); 
+        $res = SettingModel::select('community_name','community_host','community_contact','community_address','community_email','community_phone','community_facebook','community_instagram')->where('id',1)->first(); 
         return $res; 
     }
     /**
@@ -104,6 +104,20 @@ class Setting
         $res = SettingModel::select('community_name','community_introduce','community_image')->where('id',1)->first(); 
         return $res; 
     }
+     /**
+     * [取得Page banner 資料]
+     */
+    public function getPageBanner($category_id)
+    {
+        $category_name = DB::table('category')
+        ->select('category_name')
+        ->where('id',$category_id)
+        ->first();
+        $res = SettingModel::select('community_name','community_image')->where('id',1)->first(); 
+        $res['category_name'] = $category_name->category_name;
+        return $res;
+    }
+ 
     public function getIndexAboutUs()
     {
         $res = SettingModel::select('community_name','community_introduce','community_address','community_image','community_phone')->where('id',1)->first(); 
