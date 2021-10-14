@@ -85,4 +85,40 @@ class UserInfo
         $res = UserInfoModel::where('user_account',$data['account'])->first(); 
         return $res; 
     }
+
+    /**
+     * [驗證帳號是否存在]
+     */
+    public static function  getAccountToTable()
+    {
+        $selectArray = [
+            "id",
+            "user_name as name",
+            "user_account as account",
+            "user_phone as phone",
+            "user_email as email",
+            "user_permission as permission"
+        ];
+        $query = UserInfoModel::select($selectArray)
+                ->where('user_permission','normal')
+                ->orWhere('user_permission','admin')
+                ->get();
+        return $query;
+    }
+
+
+    /**
+     * 
+     */
+    public static function updatePermission($data)
+    {
+        if($data['userPermission'] == "admin" || $data['userPermission'] == "normal"){
+            $update = UserInfoModel::where('id',$data['userId'])
+                ->update(['user_permission'=>$data['userPermission']]);
+            return $update;
+        }else{
+            return false;
+        }
+        
+    }
 }

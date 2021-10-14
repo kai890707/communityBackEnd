@@ -39,7 +39,9 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'account', 'middleware' => 'jwt_refresh'], function () {
     Route::get('getAdminInfo', [UserController::class, 'getAdminInfo']);
     Route::get('getConfig', [SettingController::class, 'getConfig']);
+    Route::get('getAccountToTable', [UserController::class, 'getAccountToTable']);
     Route::post('updatePassword', [UserController::class, 'updatePassword']);
+    Route::post('updatePermission', [UserController::class, 'updatePermission']);
     Route::post('createEditor', [UserController::class, 'createEditor']);
     Route::post('updateConfig', [SettingController::class, 'updateConfig']);
 });

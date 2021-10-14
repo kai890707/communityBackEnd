@@ -89,4 +89,46 @@ class UserController extends Controller
         }
         
     }
+
+    /**
+     * 取得編輯者帳號
+     * @return object
+     */
+    public function getAccountToTable()
+    {
+        $result = UserInfo::getAccountToTable();
+        
+        if(count((array) $result) == 0){
+            return response()->json([
+                'status'=>$this::$REQUEST_ERROR,
+            ]);
+        }else{
+            return response()->json([
+                'status'=>$this::$REQUEST_SUCCESS,
+                'data'=>$result,
+            ]);
+        }
+        
+    }
+
+    /**
+     * 
+     */
+    public function updatePermission(Request $request)
+    {
+        $data = $request->all();
+      
+        try{
+            $result = UserInfo::updatePermission( $data );
+            return response()->json([
+                'status'=>$this::$REQUEST_SUCCESS,
+                'r'=>$result
+            ]);
+        }catch(Exception $e){
+            return response()->json([
+                'status'=>$this::$REQUEST_ERROR,
+                'message'=>$e
+            ]);
+        }
+    }
 }
