@@ -131,4 +131,41 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function deleteUser(Request $request)
+    {
+        $data = $request->all();
+       
+            if($data['userPermission']=="admin"){
+                try{
+                    $result = UserInfo::deleteUser( $data );
+                    if($result['status']){
+                        return response()->json([
+                            'status'=>$this::$REQUEST_SUCCESS,
+                            'r'=>$result
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status'=>$this::$REQUEST_ADMIN_DEFAULT,
+                            'message'=>'網站管理員無法刪除'
+                        ]);
+                    }
+                }catch(Exception $e){
+                    return response()->json([
+                        'status'=>$this::$REQUEST_ERROR,
+                        'message'=>$e
+                    ]);
+                }
+                
+            }else{
+                return response()->json([
+                'status'=>$this::$REQUEST_ERROR,
+            ]);
+            }
+        
+        
+            
+        
+        
+    }
 }

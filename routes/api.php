@@ -43,6 +43,7 @@ Route::group(['prefix' => 'account', 'middleware' => 'jwt_refresh'], function ()
     Route::post('updatePassword', [UserController::class, 'updatePassword']);
     Route::post('updatePermission', [UserController::class, 'updatePermission']);
     Route::post('createEditor', [UserController::class, 'createEditor']);
+     Route::post('deleteUser', [UserController::class, 'deleteUser']);
     Route::post('updateConfig', [SettingController::class, 'updateConfig']);
 });
 // 後臺文章Service

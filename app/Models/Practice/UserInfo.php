@@ -121,4 +121,26 @@ class UserInfo
         }
         
     }
+    /**
+     * 刪除USER
+     */
+    public static function deleteUser($data)
+    { 
+        $count = UserInfoModel::select('user_permission')->where('id',  $data['userId'])->get();
+        if($count[0]['user_permission'] !== "admin"){
+            $deletedRows = UserInfoModel::where('id',  $data['userId'])->delete();
+            return ['status'=>true,'data'=>$deletedRows]; 
+        }else{
+             return ['status'=>false]; 
+        }
+       
+    }
+
+    /**
+     * 取得剩餘的ADMIN帳號數量
+     */
+    // public static function getUserCount(){
+    //     $count = UserInfoModel::where('user_permission','admin')->get();
+    //     return $count;
+    // }
 }

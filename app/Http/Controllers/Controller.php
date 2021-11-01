@@ -18,6 +18,7 @@ class Controller extends BaseController
     public static $REQUEST_LOGIN_ERROR = "ERROR";
     public static $REQUEST_SUCCESS = 1;
     public static $REQUEST_ERROR = 0;
+    public static $REQUEST_ADMIN_DEFAULT = 4;
     public static $REQUEST_VERIFY_FAILD = 3;
     /**
      * 封裝response
